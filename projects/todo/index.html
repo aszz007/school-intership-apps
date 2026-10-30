@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f4ef">
+  <meta name="description" content="课间，一份轻巧的校园待办清单。添加任务，记录完成，把今天安排得清楚一点。">
+  <title>课间 · 校园待办清单</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" type="module"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="./" aria-label="课间首页"><span class="brand-mark">课</span><span>课间<small>校园待办</small></span></a>
+      <p class="nav-caption">我的空间</p>
+      <nav class="side-nav" aria-label="任务导航">
+        <button class="nav-item active" type="button" data-filter="all"><span class="nav-icon">▦</span>全部任务<span class="nav-count" id="nav-all">0</span></button>
+        <button class="nav-item" type="button" data-filter="pending"><span class="nav-icon">○</span>待完成<span class="nav-count" id="nav-pending">0</span></button>
+        <button class="nav-item" type="button" data-filter="done"><span class="nav-icon">✓</span>已完成<span class="nav-count" id="nav-done">0</span></button>
+      </nav>
+      <div class="workspace-label"><span class="avatar">S</span><div>校园工作台<small>个人任务空间</small></div></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar"><span class="breadcrumb">我的空间 <span>/</span> 任务清单</span><span class="storage-pill" id="storage-status"><span class="tiny-dot"></span>保存在此浏览器</span></header>
+      <div class="warning" id="storage-warning" role="status" hidden></div>
+      <section class="welcome">
+        <div><p class="eyebrow" id="today-label">TODAY</p><h1>任务清单</h1><p class="intro"></p></div>
+        </section>
+
+      <section class="stats" aria-label="任务统计">
+        <div class="stat-card"><span>全部任务</span><strong id="stat-all">0</strong></div>
+        <div class="stat-card"><span><i class="dot amber"></i>待完成</span><strong id="stat-pending">0</strong></div>
+        <div class="stat-card"><span><i class="dot green"></i>已完成</span><strong id="stat-done">0</strong></div>
+        <div class="stat-card progress-card"><span>完成进度</span><strong><span id="stat-progress">0</span><em>%</em></strong><div class="progress-track" role="progressbar" aria-label="任务完成进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-bar"><span id="progress-fill"></span></div></div>
+      </section>
+
+      <div class="content-grid">
+        <section class="task-panel" aria-labelledby="task-heading">
+          <div class="panel-heading"><h2 id="task-heading">添加与管理<span id="list-count">0</span></h2><button class="text-button" id="load-examples" type="button">添加示例</button></div>
+          <form id="add-form" class="add-form" novalidate>
+            <label class="sr-only" for="task-input">新任务</label><span class="input-plus" aria-hidden="true">＋</span>
+            <input id="task-input" name="task" type="text" maxlength="120" placeholder="输入任务标题" autocomplete="off" aria-describedby="input-error">
+            <button class="primary-button" type="submit">添加<span aria-hidden="true"> ↵</span></button>
+          </form>
+          <details class="task-options"><summary>设置日期、优先级与分类</summary><div class="advanced-form"><label>截止日期<input type="date" id="task-due" aria-label="新任务截止日期"></label><label>优先级<select id="task-priority" aria-label="新任务优先级"><option value="medium">中</option><option value="high">高</option><option value="low">低</option></select></label><label>分类<select id="task-category" aria-label="新任务分类"><option value="course">课程</option><option value="daily">日常</option></select></label></div></details>
+          <p id="input-error" class="input-error" role="alert" hidden></p>
+          <div class="list-toolbar"><div class="filter-tabs" role="group" aria-label="筛选任务"><button type="button" class="filter-tab active" data-filter="all" aria-pressed="true">全部</button><button type="button" class="filter-tab" data-filter="pending" aria-pressed="false">待完成</button><button type="button" class="filter-tab" data-filter="done" aria-pressed="false">已完成</button></div><button id="clear-completed" class="text-button muted" type="button" disabled>清理已完成</button></div>
+          <div class="search-toolbar"><label>搜索任务<input id="task-search" type="search" placeholder="搜索任务关键词" aria-label="搜索任务"></label><label>分类<select id="category-filter" aria-label="按分类筛选"><option value="all">全部分类</option><option value="course">课程</option><option value="daily">日常</option></select></label><label>排序<select id="sort-tasks" aria-label="任务排序"><option value="created">添加顺序</option><option value="due">截止日期</option><option value="priority">优先级</option></select></label></div><p class="match-label" id="match-label" role="status"></p>
+          <ul class="task-list" id="task-list" aria-label="任务列表"></ul>
+          <div class="empty-state" id="empty-state"><div class="empty-icon" aria-hidden="true">✓</div><h3 id="empty-title">暂无任务</h3><p id="empty-description">在上方输入标题，点击“添加”。</p></div>
+          <footer class="list-footer"><span id="remaining-label">暂时没有任务</span><div><button class="text-button" id="export-tasks" type="button">导出备份</button><button class="text-button" id="import-tasks" type="button">导入备份</button><input id="import-file" type="file" accept=".json,application/json" hidden></div></footer>
+        </section>
+      </div>
+      <footer class="page-footer"><details><summary>数据与备份</summary><p>任务只保存在当前浏览器。换设备或清除浏览器数据前，请导出备份；导入会替换清单，确认后可在12秒内撤销。</p></details><a href="../">课程作品</a></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" hidden><span id="toast-message"></span><button type="button" id="undo-button" hidden>撤销</button><button type="button" id="dismiss-toast" aria-label="关闭提示">×</button></div>
+  <dialog id="edit-dialog" aria-labelledby="edit-title"><h2 id="edit-title">编辑任务</h2><form id="edit-form" novalidate><label class="edit-field">任务标题<input id="edit-task-title" maxlength="120" required></label><label class="edit-field">截止日期<input id="edit-task-due" type="date"></label><label class="edit-field">优先级<select id="edit-task-priority"><option value="medium">中</option><option value="high">高</option><option value="low">低</option></select></label><label class="edit-field">分类<select id="edit-task-category"><option value="course">课程</option><option value="daily">日常</option></select></label><p id="edit-error" role="alert" class="input-error" hidden></p><div class="dialog-actions"><button id="cancel-edit" type="button" class="text-button">取消</button><button type="submit" class="primary-button">保存修改</button></div></form></dialog>
+  <dialog id="import-dialog" aria-labelledby="import-title"><h2 id="import-title">确认导入备份</h2><p id="import-description"></p><p>此操作会替换当前清单，可在12秒内撤销。取消不会改动任务。</p><div class="dialog-actions"><button id="cancel-import" type="button" class="text-button">取消导入</button><button id="confirm-import" type="button" class="primary-button">确认替换</button></div></dialog>
+</body>
+</html>

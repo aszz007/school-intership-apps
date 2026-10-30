@@ -1,0 +1,12 @@
+node_modules/
+.venv/
+.local/
+dist/
+release/
+__pycache__/
+*.pyc
+*.sqlite*
+*.db
+*.log
+.env*
+!.env.example
