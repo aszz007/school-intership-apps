@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 $project = Split-Path -Parent $PSScriptRoot
 Push-Location -LiteralPath $project
 try {
