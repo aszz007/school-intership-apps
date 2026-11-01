@@ -6,4 +6,4 @@
 
 笔记保存在当前浏览器的paper-notes.v1。重要内容可下载留存。示例笔记可主动加载、编辑和删除。
 
-从课设根目录运行python tools/serve.py，访问http://127.0.0.1:4173/markdown-notes/。
+从仓库根目录运行python tools/serve.py，访问http://127.0.0.1:4173/markdown-notes/。

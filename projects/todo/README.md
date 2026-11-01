@@ -8,4 +8,4 @@ index.html组织界面，styles.css负责响应式布局，app.js处理状态和
 
 秒哒平台版已发布至v6，地址https://app-f1dgvuck4jk1.miaoda.online。源码版与平台版是分别实现的同类应用，备份结构不同，不能混用导入文件；本目录不是秒哒付费导出源码。
 
-实际测试和限制造成的待检查项见../../docs/final/测试文档.md。示例任务可主动加载、编辑和删除。
+核心逻辑可在仓库根目录运行 `node --test tools/core.test.mjs` 检查。示例任务可主动加载、编辑和删除。

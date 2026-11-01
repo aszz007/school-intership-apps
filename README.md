@@ -1,5 +1,7 @@
 # 课程应用
 
+**维护状态：2026年11月1日完成最终开源归档，后续不再更新或提供维护。可按 MIT 许可证自行 fork。**
+
 | 应用 | 功能 | 技术 |
 | --- | --- | --- |
 | [拾页](projects/reader/) | TXT/EPUB、目录、阅读位置 | Electron + React |
@@ -15,3 +17,7 @@
 网页核心检查：`node --test tools/core.test.mjs`。桌面与后端检查见各项目 README。
 
 [个人网站](https://github.com/aszz007/school-intership-portfolio) 和 [ImageGrab](https://github.com/aszz007/school-intership-imagegrab) 独立维护。
+
+## 许可
+
+原创代码采用 [MIT](LICENSE)。第三方依赖、外部服务及其数据按各自许可使用。
